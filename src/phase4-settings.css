@@ -1,0 +1,2 @@
+.modal select{width:100%;padding:10px 11px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:5px}
+.ai-progress>button{border:1px solid var(--line);background:var(--bg);color:var(--danger);padding:4px 9px;border-radius:4px;cursor:pointer}
