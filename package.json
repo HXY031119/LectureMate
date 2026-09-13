@@ -8,11 +8,31 @@
     "dev": "npm run build:electron && concurrently -k \"vite\" \"tsc -p tsconfig.electron.json --watch\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electronmon .\"",
     "build:electron": "tsc -p tsconfig.electron.json",
     "build": "npm run clean && tsc -p tsconfig.electron.json && vite build",
+    "dist:mac": "npm run build && electron-builder --mac dmg zip --arm64",
     "clean": "rimraf dist dist-electron coverage",
     "typecheck": "tsc -p tsconfig.electron.json --noEmit && tsc -p tsconfig.renderer.json --noEmit",
     "lint": "eslint . --max-warnings=0",
     "test": "cross-env ELECTRON_RUN_AS_NODE=1 electron ./node_modules/vitest/vitest.mjs run",
     "postinstall": "electron-rebuild -f -w better-sqlite3"
+  },
+  "build": {
+    "appId": "com.hxy031119.lecturemate",
+    "productName": "LectureMate",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    }
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
@@ -33,6 +53,7 @@
     "concurrently": "^9.2.1",
     "cross-env": "^10.0.0",
     "electron": "^37.3.1",
+    "electron-builder": "^26.15.3",
     "electronmon": "^2.0.3",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
